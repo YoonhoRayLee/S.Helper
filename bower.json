@@ -1,0 +1,7 @@
+{
+    "name": "SHelper",
+    "dependencies": {
+    "admin-lte": "latest",
+    "fastclick": "latest"
+    }
+}

@@ -1,0 +1,194 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>S.Helper admin</title>
+		<link href="{% static 'style.css' %}" rel='stylesheet' type='text/css' />
+	</head>
+	<body>
+		<style>
+		/* UI Object */
+		.tbl_type,.tbl_type th,.tbl_type td{
+		border:0
+		}
+		.tbl_type{
+		width:100%;
+		border-bottom:2px solid #dcdcdc;
+		font-family:Tahoma;
+		font-size:11px;
+		text-align:center
+		}
+		.tbl_type caption{
+		display:none
+		}
+		.tbl_type th{
+		padding:7px 0 4px;
+		border-top:2px solid #dcdcdc;
+		background-color:#f5f7f9;
+		color:#666;
+		font-family:'돋움',dotum;font-size:12px;
+		font-weight:bold
+		}
+		.tbl_type td{
+		padding:6px 0 4px;
+		border-top:1px solid #e5e5e5;
+		font-family:'돋움',dotum;font-size:12px;
+		color:#4c4c4c
+		}
+		/* //UI Object */
+		</style>
+		<div class="wrap">
+			<strong style="text-align:center">현재DB</strong>
+			<table cellspacing="0" border="1" summary="현재DB" class="tbl_type">
+				<caption>현재DB</caption>
+				<colgroup>
+					<col width="6%"><col width=""><col width="6%" span="6">
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">장학금명</th>
+						<th scope="col">학교</th>
+						<th scope="col">성적</th>
+						<th scope="col">학년</th>
+						<th scope="col">이수학점</th>
+						<th scope="col">소득분위</th>
+						<th scope="col">장애여부</th>
+						<th scope="col">보훈</th>
+						<th scope="col">전공분류</th>
+						<th scope="col">입학유형</th>
+						<th scope="col">신청기간</th>
+						<th scope="col">지원내용</th>
+						<th scope="col">설명</th>
+						<th scope="col">분류</th>
+						<th scope="col">DEL</th>
+						<th scope="col">UP</th>
+					</tr>
+				</thead>
+				<tbody id="my_tb">
+						{% for scholarships in scholarships %}
+						<tr>
+							<form method="post">
+							{% csrf_token %}
+								<td class="num" name="name">{{scholarships.name}}</td>
+								<td class="title" name="school">{{scholarships.school}}</td>
+								<td class="name" name="grade">{{scholarships.grade}}</td>
+								<td class="created_date" name="year">{{scholarships.year}}</td>
+								<td class="hits" name="credit">{{scholarships.credit}}</td>
+								<td class="num" name="income">{{scholarships.income}}</td>
+								<td class="title" name="impaired">{{scholarships.impaired}}</td>
+								<td class="name" name="merit">{{scholarships.merit}}</td>
+								<td class="name" name="major">{{scholarships.major}}</td>
+								<td class="created_date" name="regular_decision">{{scholarships.regular_decision}}</td>
+								<td class="hits" name="period">{{scholarships.period}}</td>
+								<td class="num" name="benefit">{{scholarships.benefit}}</td>
+								<td class="title" name="spec">{{scholarships.spec}}</td>
+								<td class="name" name="stype">{{scholarships.stype}}</td>
+								<td><button type="submit" class="button-delup" value="del" onclick=""><a>del</a></button></td>
+								<td><button type="submit" class="button-delup" value="up" onclick=""><a>up</a></button></td>
+							</form>
+						</tr>
+						{% endfor %}
+				</tbody>
+			</table>
+			<div class="pagination" style="text-align:center">
+					<ul class="pagination" >
+						{% if scholarships.has_previous %}
+						<a href="?page={{ scholarships.previous_page_number }}">&laquo;</a>
+						{% else %}
+						<!--<li class="disabled"><span>&laquo;</span></li>-->
+						{% endif %}
+						{% for i in scholarships.num_pages %}
+						<!--{% if scholarships.number == i %}-->
+							<li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+						<!--{% else %}-->
+							<a href="?page={{ i }}">{{ i }}</a>
+						{% endif %}
+						{% endfor %}
+						{% if scholarships.has_next %}
+						<a href="?page={{ scholarships.next_page_number }}">&raquo;</a>
+						{% else %}
+						<!--li class="disabled"><span>&raquo;</span></li>-->
+						{% endif %}
+					</ul>
+			</div>
+			
+		</div>
+		<div class="clear"></div>
+
+		<div class="wrap">
+		  	<strong style="text-align:center">검색예정DB</strong>
+
+		  	<table cellspacing="0" border="1" summary="검색예정DB" class="tbl_type">
+				<caption>검색예정DB</caption>
+				<colgroup>
+					<col width="10%"><col width="10%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">장학금명</th>
+						<th scop="col">검색</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<form method="post"></form>
+							<td>
+								<div class="input"><input name="searchDB" placeholder="검색 할 DB를 입력하세요." type="text2" required class="validate" autocomplete="off"></div>
+							</td>
+							<td>
+								<input type="submit" value="검색">
+							</td>
+						</form>
+					</tr>
+				</tbody>
+			</table>
+			<table cellspacing="0" border="1" summary="검색결과" class="tbl_type">
+				<caption>검색결과</caption>
+				<cogroup>
+						<colgroup>
+							<col width="6%"><col width=""><col width="6%" span="6">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">장학금명</th>
+								<th scope="col">학교</th>
+								<th scope="col">성적</th>
+								<th scope="col">학년</th>
+								<th scope="col">이수학점</th>
+								<th scope="col">소득분위</th>
+								<th scope="col">장애여부</th>
+								<th scope="col">보훈</th>
+								<th scope="col">전공분류</th>
+								<th scope="col">입학유형</th>
+								<th scope="col">신청기간</th>
+								<th scope="col">지원내용</th>
+								<th scope="col">설명</th>
+								<th scope="col">분류</th>
+							</tr>
+						</thead>
+						<tbody id="my_tb">
+							<tr>
+								{% for Scholarship in Scholarship %}
+								<td class="num" name="name">{{Scholarship.name}}</td>
+								<td class="title" name="school">{{Scholarship.school}}</td>
+								<td class="name" name="grade">{{Scholarship.grade}}</td>
+								<td class="created_date" name="year">{{Scholarship.year}}</td>
+								<td class="hits" name="credit">{{Scholarship.credit}}</td>
+								<td class="num" name="income">{{Scholarship.income}}</td>
+								<td class="title" name="impaired">{{Scholarship.impaired}}</td>
+								<td class="name" name="merit">{{Scholarship.merit}}</td>
+								<td class="name" name="major">{{Scholarship.major}}</td>
+								<td class="created_date" name="regular_decision">{{Scholarship.regular_decision}}</td>
+								<td class="hits" name="period">{{Scholarship.period}}</td>
+								<td class="num" name="benefit">{{Scholarship.benefit}}</td>
+								<td class="title" name="spec">{{Scholarship.spec}}</td>
+								<td class="name" name="stype">{{Scholarship.stype}}</td>
+								{% endfor %}
+							</tr>
+				</cogroup>
+			</table>
+		</div>
+		<div class="clear"></div>
+
+	</body>
+</html>
