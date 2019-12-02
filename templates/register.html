@@ -235,6 +235,10 @@
 			</div>
 			<!----//End-content--->
 		<!---//End-wrap---->
+		<script type="text/javascript" src="{% static 'js/validate.js' %}"></script>
+		{% if messages %}
+			<script> alert("이미 정보가 등록되어 있습니다.\n수정은 마이페이지에서 하십시오.") </script>
+    	{% endif %}
 	</body>
 </html>
 

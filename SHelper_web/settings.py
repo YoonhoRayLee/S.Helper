@@ -52,10 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'manager',
-    'hitcount',
-    'schedule',
-    'djangobower',
-    'rest_framework',
 ]
 
 REST_FRAMEWORK = {
