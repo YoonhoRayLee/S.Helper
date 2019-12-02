@@ -21,15 +21,15 @@
       -webkit-transform: translate3d(0, 0, 0);
       -moz-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
-      width: 420px;
+      width: 350px;
       margin: 0 auto;
-      height: 570px;
+      height: 450px;
       overflow: hidden;
     }
     
     .header_calendar {
-      height: 50px;
-      width: 420px;
+      height: 40px;
+      width: 350px;
       text-align: center;
       position:relative;
       z-index: 100;
@@ -110,7 +110,7 @@
     
     .day {
       display: inline-block;
-      width: 60px;
+      width: 50px;
       padding: 10px;
       text-align: center;
       vertical-align: top;
@@ -169,8 +169,8 @@
     
     .details {
       position: relative;
-      width: 420px;
-      height: 75px;
+      width: 350px;
+      height: 50px;
       background: rgba(164, 164, 164, 1);
       margin-top: 5px;
       border-radius: 4px;
@@ -202,7 +202,7 @@
     }
     
     .events {
-      height: 75px;
+      height: 23px;
       padding: 7px 0;
       overflow-y: auto;
       overflow-x: hidden;
@@ -233,10 +233,10 @@
     }
     
     .event {
-      font-size: 16px;
+      font-size: 8px;
       line-height: 22px;
       letter-spacing: .5px;
-      padding: 2px 16px;
+      padding: 0px 16px;
       vertical-align: top;
     }
     
