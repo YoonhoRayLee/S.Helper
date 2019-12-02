@@ -112,7 +112,7 @@
 						{% for row in notice_table %}
 						<form action ="{% url 'notice_result' %}" method = "POST">
 							{% csrf_token %}
-							tr>
+							<tr>
 								<td class="num">{{forloop.counter}}</td>
 								<td class="title">
 									<input type="hidden" name="nid" value="{{row.id}}">

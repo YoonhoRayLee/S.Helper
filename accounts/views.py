@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib import auth
 from accounts.models import scholarship_info
-from manager.models import Scholarship, Contest, Events, User_Contest, User_Scholarship, Notice
+from manager.models import Scholarship, Contest, User_Contest, Events, User_Scholarship, Notice
 from django.contrib import messages
-from django.db.models import F
+from django.db.models import F, Subquery
 #from django.db.models.manager import objects
 
 def signup(request):
@@ -431,4 +431,9 @@ def mypage(request):
         modified_table = will_be_modified.update(income=n_income, grade=n_grade, year=n_year, credit=n_credit, school=n_school, major=n_major, impaired=n_impaired, merit=n_merit, regular_decision=n_regular_decision)
         return redirect('/index/')
     else:
-        return render(request, 'mypage.html')
+        uid = request.user.id
+        result_table = Contest.objects.filter(id=Subquery(User_Contest.objects.filter(user_id = uid).order_by('contest_id').values('contest_id')[:1])).values('title', 'sdate', 'edate')
+        context = {
+            'result_table' : result_table,
+        }
+        return render(request, 'mypage.html', context)
