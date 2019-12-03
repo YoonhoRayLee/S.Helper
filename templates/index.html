@@ -70,9 +70,11 @@
 							<li><a href="{% url 'about' %}">소개</a></li>
 							{% if user.is_authenticated %}
 							<li><a href="{% url 'result' %}">맞춤장학조회</a></li>
+							<li><a href="{% url 'result_contest' %}">맞춤공모전</a></li>
 							<li><a href="{% url 'register' %}">장학정보등록</a></li>
 							{% else %}
 							<li><a href="{% url 'need_login' %}">맞춤장학조회</a></li>
+							<li><a href="{%url 'need_login' %}">맞춤공모전</a></li>
 							<li><a href="{% url 'need_login' %}">장학정보등록</a></li>
 							{% endif %}
 							{% if user.is_superuser %}
