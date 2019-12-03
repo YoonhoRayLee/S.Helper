@@ -107,12 +107,12 @@
                                     <form action="" method="post" encType="multiplart/form-data">
                                         {% for row in notice_table %}
                                         <tr>
-                                            <th><font color="#000000">제목:</font> </th>
+                                            <th width=20% style="text-align: center;"><font color="#000000">제목</font> </th>
                                             <td><font color="#000000">{{row.title}}</font></td>
                                         </tr>
                                         <tr>
-                                            <th><font color="#000000">내용:</font> </th>
-                                            <td><font color="#000000">{{row.content}}</font></td>
+                                            <th style="text-align: center;"><font color="#000000">내용</font> </th>
+                                            <td height=300px><font color="#000000">{{row.content}}</font></td>
                                         </tr>
                                         {% endfor %}
                                     </form>
@@ -158,11 +158,6 @@
                 <!---//End-bottom-footer-grids---->
 			<!----//End-content--->
         <!---//End-wrap---->
-        {% if messages %}
-			{% for message in messages %}
-			<script>alert("{{message.message}}")</script>
-			{% endfor %}
-		{% endif %}
 	</body>
 </html>
 

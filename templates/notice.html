@@ -92,6 +92,12 @@
 				<div class="wrap">
 					<div class="top-grids" style="text-align:center">
 						<a>공지사항</a>
+					{% if user.is_superuser %}
+						<div class="button-6" style="margin:auto; float:right;">
+						<div class="eff-6"></div>
+						<a href="{% url 'form' %}"> 공지사항 작성 </a>
+						</div>
+					{% endif %}
 					</div>
 					<table cellspacing="0" border="1" summary="게시판의 글제목 리스트" class="tbl_type">
 					<caption>게시판 리스트</caption>
@@ -116,7 +122,7 @@
 								<td class="num">{{forloop.counter}}</td>
 								<td class="title">
 									<input type="hidden" name="nid" value="{{row.id}}">
-									<input type="submit" value="{{row.title}}" text-algin="center">
+									<input type="submit" name="title" value="{{row.title}}" text-align="center">
 								</td>
 								<td>
 									<a href="#">S.Helper</a>
@@ -131,14 +137,6 @@
 				</table>
 				<div class="clear"> </div>
 				<div class="clear"> </div>
-				{% if user.is_superuser %}
-				<div class="center">
-					<div class="button-6" style="margin:auto; top:50%; left:45%;">
-						<div class="eff-6"></div>
-						<a href="{% url 'form' %}"> 공지사항 작성 </a>
-					</div>
-				</div>
-				{% endif %}
 				<!-- UI Object -->		
 <!-- //UI Object -->
 			</div>
@@ -176,6 +174,11 @@
 				</div>
 				<!---//End-bottom-footer-grids---->
 			</div>
+			{% if messages %}
+			{% for message in messages %}
+			<script>alert("{{message.message}}")</script>
+			{% endfor %}
+		{% endif %}
 			<!----//End-content--->
 		<!---//End-wrap---->
 	</body>

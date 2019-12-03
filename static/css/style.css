@@ -2087,6 +2087,16 @@ input[type=submit] {
     border-radius: 3px;
 }
 
+input[name=title] {
+    padding: 6px 25px;
+    background: #FFFFFF;
+    color: #000000;
+    font-weight: bold;
+    border: 0 none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
 .register {
     margin: auto;
     padding: 16px 0;
