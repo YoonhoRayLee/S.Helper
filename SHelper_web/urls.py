@@ -18,12 +18,12 @@ from django.urls import path, include
 from accounts import views
 
 urlpatterns = [
+    path('user', include('accounts.urls')),
+    path('', views.index, name='home'),
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
     path('index/', views.index, name='index'),
-    path('accounts/', include('accounts.urls')),
     path('notice/', views.notice, name='notice'),
-    path('manager/', include('manager.urls')),
+    path('manage/', views.manage, name='manage'),
     path('about/', views.about, name='about'),
     path('result/', views.result, name='result'),
     path('calendar/', views.calendar, name='calendar'),
@@ -38,6 +38,8 @@ urlpatterns = [
     path('service3/', views.service3, name='service3'),
     path('service4/', views.service4, name='service4'),
     path('need_login/', views.need_login, name='need_login'),
+    path('already/', views.already, name='already'),
+    path('delete_user/', views.delete_user, name='delete_user'),
     path('is_admin/', views.is_admin, name='is_admin'),
     path('notice_result', views.notice_result, name='notice_result'),
     path('form/', views.form, name='form'),

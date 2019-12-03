@@ -94,6 +94,24 @@
                <div class="content-feature-grids">
                   <div class="wrap"> 
                      <h1><span>맞춤</span>공모전조회</h1>
+                     {% if user.is_superuser %}
+                     <div class="content">
+                           <div class="content-feature-grids">
+                              <div class="wrap">
+                                 <div class="wrap"> 
+                                    <h1><span>일반 유저</span>만 이용 가능한 서비스입니다.</h1>
+                                    <div class="clear"> </div>
+                                 </div>
+                                 <div id="wrapper">
+                                    <button class="button-need">
+                                     <div class="eff-need"></div>
+                                     <a href="{% url 'index' %}">메인페이지</a>
+                                      </button>
+                                   </div>
+                              </div>
+                           </div>
+                     </div>
+                     {% else %}
                      <div class="wrap">
                      	<button type="submit" class="button-2" name="광고/마케팅" value="광고">
                          	<div class="eff-2"></div>
@@ -113,6 +131,7 @@
                         </button>
                      	<div class="clear"> </div>
                      </div>
+                     {% endif %}
                   </div>
                </div>
             </form>

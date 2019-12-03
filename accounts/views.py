@@ -1,15 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, F, Subquery
 from django.contrib import auth
 from accounts.models import scholarship_info
 from manager.models import Scholarship, Contest, User_Contest, Events, User_Scholarship, Notice
 from django.contrib import messages
-from django.db.models import F, Subquery
+from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import user_passes_test
 #from django.db.models.manager import objects
 
 def signup(request):
     if request.method == "POST":
+        uid = request.POST["username"]
+        is_user = User.objects.filter(username=uid)
+        if is_user.count() != 0:
+            messages.info(request, '중복되는 아이디가 존재합니다!')
+            return redirect('signup')
         if request.POST["password1"] == request.POST["password2"]:
             username = request.POST["username"]
             password = request.POST["password1"]
@@ -53,7 +60,8 @@ def login(request):
             auth.login(request, user)
             return redirect('/index/')
         else:
-            return render(request, 'accounts/login.html', {'error': 'username or password is incorrect'}) #!!!!!!!!!!!!
+            messages.info(request, '아이디/패스워드가 틀렸습니다!')
+            return render(request, 'accounts/login.html')
 
     else:
         return render(request, 'accounts/login.html')
@@ -376,33 +384,44 @@ def service4(request):
 def is_admin(request):
     return render(request, 'is_admin.html')
 
+def already(request):
+    return render(request, 'already.html')
 
 #@login_required
 def register(request):
-    if request.method == "POST":
-        username = request.user.username
-        income = request.POST['소득분위']
-        credit = request.POST['성적정보']
-        grade = request.POST['학년']
-        taken_credit = request.POST['이수학점']
-        univ_name = request.POST['college']
-        department_stype = request.POST['지원계열']
-        disability = request.POST['장애여부']
-        national_merit = request.POST['보훈']
-        apply_stype = request.POST['입학유형']
+    uid = request.user.username
+    is_user_in_db = scholarship_info.objects.filter(uid=uid)
+    if is_user_in_db.count() == 0:
+        if request.method == "POST":
+            username = request.user.username
+            income = request.POST['소득분위']
+            credit = request.POST['성적정보']
+            grade = request.POST['학년']
+            taken_credit = request.POST['이수학점']
+            univ_name = request.POST['college']
+            department_stype = request.POST['지원계열']
+            disability = request.POST['장애여부']
+            national_merit = request.POST['보훈']
+            apply_stype = request.POST['입학유형']
 
-        is_user_in_db = scholarship_info.objects.filter(uid=username)
-        if is_user_in_db.count() == 0:
             scholarship_info(uid=username, income=income, grade=credit, year=grade,
-                            credit=taken_credit, school=univ_name, major=department_stype,
-                            impaired=disability, merit=national_merit, regular_decision=apply_stype).save()
+                        credit=taken_credit, school=univ_name, major=department_stype,
+                        impaired=disability, merit=national_merit, regular_decision=apply_stype).save()
+            return redirect('/index/')
         else:
-            messages.info(request, 'You already registered your scholarship information')
-            return redirect('/register/')
+            return render(request, 'register.html')
+    else:
+        return redirect('already')
 
+def delete_user(request):
+    if request.method == "POST":
+        uid = request.user.username
+        user_db = scholarship_info.objects.filter(uid = uid).delete()
+        request.user.delete()
+        messages.info(request, '회원탈퇴를 완료하였습니다!')
         return redirect('/index/')
     else:
-        return render(request, 'register.html')
+        return render(request, 'delete_user.html')
 
 def mypage(request):
     if request.method == "POST":
@@ -432,8 +451,50 @@ def mypage(request):
         return redirect('/index/')
     else:
         uid = request.user.id
-        result_table = Contest.objects.filter(id=Subquery(User_Contest.objects.filter(user_id = uid).order_by('contest_id').values('contest_id')[:1])).values('title', 'sdate', 'edate')
+        selectedContest = []
+        selectedScholarship = []
+        for user_contest in User_Contest.objects.filter(user_id = uid):
+            selectedContest.append(Contest.objects.get(id=user_contest.contest_id))
+        for user_scholarship in User_Scholarship.objects.filter(user_id = uid):
+            selectedScholarship.append(Scholarship.objects.get(id=user_scholarship.scholarship_id)) 
+
+        # result_table = Contest.objects.filter(id=Subquery(User_Contest.objects.filter(user_id = uid).order_by('contest_id').values('contest_id')[:1])).values('title', 'sdate', 'edate')
+        print(selectedContest)
         context = {
-            'result_table' : result_table,
+            'result_table' : selectedContest,
+            'result_table2' : selectedScholarship,
         }
         return render(request, 'mypage.html', context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def manage(request):
+    if not user_passes_test:
+        return redirect('/index/')
+
+    Scholarship_list = Scholarship.objects.all()
+    paginator = Paginator(Scholarship_list, 10)
+    page = request.GET.get('page', default=1)
+    searchDB = request.GET.get("searchDB")
+    
+    try:
+        scholarships = paginator.page(page)
+    except PageNotAnInteger:
+        scholarships = paginator.page(1)
+    except EmptyPage:
+        scholarships = paginator.page(paginator.num_pages)
+
+    if request.method=="POST":
+        sid = request.POST["sid"]
+        delete_scholarship = Scholarship.objects.get(id=sid)
+        delete_scholarship.delete()
+        messages.info(request, '해당 장학을 삭제 했습니다!')
+
+    data = { 'scholarships':scholarships, "page": page }
+
+    if searchDB:
+        search_scholarship = Scholarship.objects.filter(name__contains=searchDB)
+        data['result_table'] = search_scholarship
+
+    return render(request, 'manage.html', data)
+
+    

@@ -88,6 +88,11 @@ strong{
 	float:left;
 	margin-top: 1em;
 }
+.header-center{
+	float:center;
+	margin:auto;
+	left:50%;
+}
 .user-header-left{
 	color:#000000;
 	float:left;
@@ -2743,4 +2748,10 @@ caption{
   transition:all .5s ease;
   z-index:2;
   position:relative;
+}
+.div_center{
+	position: absolute;
+	top:50%;
+	left:50%;
+	margin: auto;
 }

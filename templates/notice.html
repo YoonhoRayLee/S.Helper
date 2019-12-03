@@ -131,13 +131,15 @@
 				</table>
 				<div class="clear"> </div>
 				<div class="clear"> </div>
-				<div class="button-6">
+				{% if user.is_superuser %}
+				<div class="center">
+					<div class="button-6" style="margin:auto; top:50%; left:45%;">
 						<div class="eff-6"></div>
 						<a href="{% url 'form' %}"> 공지사항 작성 </a>
 					</div>
 				</div>
-				<!-- UI Object -->
-				
+				{% endif %}
+				<!-- UI Object -->		
 <!-- //UI Object -->
 			</div>
 				<!---start-bottom-footer-grids---->

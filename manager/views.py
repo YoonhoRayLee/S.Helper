@@ -23,10 +23,16 @@ def show_list(request):
             scholarships = paginator.page(1)
         except EmptyPage:
             scholarships = paginator.page(paginator.num_pages)
-        return render(request, 'manage.html', {'scholarships':scholarships})
+        if request.method=="POST":
+            sid = request.POST["sid"]
+
+            delete_scholarship = Scholarship.objects.get(id=sid)
+            delete_scholarship.delete()
+            messages.info(request, '해당 장학을 삭제 했습니다!')
+            return redirect("/manage/")
+        return redirect("/manage/")
     else:
-        auth.logout(request)
-        return render(request, 'need_admin.html')
+        return render(request, 'manage.html', {'scholarships':scholarships})
 
 def delete_db(request):
     if request.method=="POST":

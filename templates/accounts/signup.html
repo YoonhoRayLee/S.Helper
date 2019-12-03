@@ -34,18 +34,19 @@
                     <nav id="menu-left">
                         <ul>
                             <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><a href="{% url 'notice' %}">공지사항</a></li>
                             <li><a href="{% url 'about' %}">소개</a></li>
                             {% if user.is_authenticated %}
                             <li><a href="{% url 'result' %}">맞춤장학조회</a></li>
+                            <li><a href="{% url 'result_contest' %}">맞춤공모전</a></li>
                             <li><a href="{% url 'register' %}">장학정보등록</a></li>
                             {% else %}
                             <li><a href="{% url 'need_login' %}">맞춤장학조회</a></li>
+                            <li><a href="{%url 'need_login' %}">맞춤공모전</a></li>
                             <li><a href="{% url 'need_login' %}">장학정보등록</a></li>
                             {% endif %}
                             {% if user.is_superuser %}
                             <li><a href="{% url 'manage' %}">장학관리</a></li>
-                            {% else %}
-                            <li><a href="{% url 'is_admin' %}">장학관리</a></li>
                             {% endif %}
                         </ul>
                     </nav>
@@ -67,9 +68,11 @@
                         <li><a href="{% url 'about' %}">소개</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'result' %}">맞춤장학조회</a></li>
+                        <li><a href="{% url 'result_contest' %}">맞춤공모전</a></li>
                         <li><a href="{% url 'register' %}">장학정보등록</a></li>
                         {% else %}
                         <li><a href="{% url 'need_login' %}">맞춤장학조회</a></li>
+                        <li><a href="{%url 'need_login' %}">맞춤공모전</a></li>
                         <li><a href="{% url 'need_login' %}">장학정보등록</a></li>
                         {% endif %}
                         {% if user.is_superuser %}
@@ -129,14 +132,13 @@
 
             <div class="remember-me">
                 <input type="checkbox">
-                <span style="color: #DDD">약관에 동의합니다.</span>
+                <span style="color: #000000">약관에 동의합니다.</span>
             </div>
-
             <input type="submit" value="Register" />
         </form>
 
         <div class="register">
-            이미 계정을 가지고 계신가요?
+            <span style="color: #000000">이미 계정을 가지고 계신가요?</span>
             <a href="{% url 'login' %}"><button id="register-link">로그인하기</button></a>
         </div>
     </div>
@@ -176,6 +178,11 @@
             </div>
             <!----//End-content--->
         <!---//End-wrap---->
+        {% if messages %}
+			{% for message in messages %}
+				<script>alert("{{message.message}}")</script>
+			{% endfor %}
+		{% endif %}
     </body>
 </html>
 

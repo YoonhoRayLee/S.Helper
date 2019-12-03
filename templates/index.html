@@ -42,9 +42,11 @@
 						<li><a href="{% url 'about' %}">소개</a></li>
 						{% if user.is_authenticated %}
 						<li><a href="{% url 'result' %}">맞춤장학조회</a></li>
+						<li><a href="{% url 'result_contest' %}">맞춤공모전</a></li>
 						<li><a href="{% url 'register' %}">장학정보등록</a></li>
 						{% else %}
 						<li><a href="{% url 'need_login' %}">맞춤장학조회</a></li>
+						<li><a href="{%url 'need_login' %}">맞춤공모전</a></li>
 						<li><a href="{% url 'need_login' %}">장학정보등록</a></li>
 						{% endif %}
 						{% if user.is_superuser %}
@@ -85,7 +87,7 @@
 					<div class="sign-ligin-btns">
 						{% if user.is_authenticated %} 
 						<div class="button-user">
-							<a>{{ user }}님 환영합니다.</a>
+							<a><span style="color:#E95192;">{{ user }}</span> 님 환영합니다.</a>
 						</div>
 						<div class="button-empty"></div>
 						<div class="button-1">
@@ -248,7 +250,12 @@
 				<!—//End-bottom-footer-grids——>
 			</div>
 			
-			<!——//End-content—>
-		<!—//End-wrap——>
+			<!--//End-content-->
+		<!--//End-wrap-->
+		{% if messages %}
+			{% for message in messages %}
+				<script>alert("{{message.message}}")</script>
+			{% endfor %}
+		{% endif %}
 	</body>
 </html>

@@ -91,117 +91,117 @@
 			<div class="content">
 				<div class="testimonials"></div>
 					<div id="container-register">
-        <form method="post">
-			{% csrf_token %}
-            <div id="title">
-            	<font color="#000000">장학정보등록</font>
-            </div>
-            <div class="input">
-                <div class="input-addon">
-                	<font color="#000000">소득분위</font>
-                </div>
-                <select id="dropstyle" name="소득분위" required class="validate">
-                <option value="">선택</option>
-                <option value="1">1분위</option>
-                <option value="2">2분위</option>
-                <option value="3">3분위</option>
-                <option value="4">4분위</option>
-                <option value="5">5분위</option>
-                <option value="6">6분위</option>
-                <option value="7">7분위</option>
-                <option value="8">8분위</option>
-                <option value="9">9분위</option>
-                <option value="10">10분위</option>
-                </select>
-                
-            </div>
-            <div class="clearfix"></div>
-            
-            <div class="input">
-                <div class="input-addon">
-                	<font color="#000000">학년</font>
-                </div>
-                <select id="dropstyle" name="학년" required class="validate">
-                <option value="">선택</option>
-                <option value="0">신입생</option>
-                <option value="1">1학년</option>
-                <option value="2">2학년</option>
-                <option value="3">3학년</option>
-                <option value="4">4학년</option>
-                <option value="5">4학년 이상</option>
-            </select>
-            </div>
-            <div class="clearfix"></div>
+						<form method="post">
+							{% csrf_token %}
+							<div id="title">
+								<font color="#000000">장학정보등록</font>
+							</div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">소득분위</font>
+								</div>
+								<select id="dropstyle" name="소득분위" required class="validate">
+								<option value="">선택</option>
+								<option value="1">1분위</option>
+								<option value="2">2분위</option>
+								<option value="3">3분위</option>
+								<option value="4">4분위</option>
+								<option value="5">5분위</option>
+								<option value="6">6분위</option>
+								<option value="7">7분위</option>
+								<option value="8">8분위</option>
+								<option value="9">9분위</option>
+								<option value="10">10분위</option>
+								</select>
+								
+							</div>
+							<div class="clearfix"></div>
+							
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">학년</font>
+								</div>
+								<select id="dropstyle" name="학년" required class="validate">
+								<option value="">선택</option>
+								<option value="0">신입생</option>
+								<option value="1">1학년</option>
+								<option value="2">2학년</option>
+								<option value="3">3학년</option>
+								<option value="4">4학년</option>
+								<option value="5">4학년 이상</option>
+							</select>
+							</div>
+							<div class="clearfix"></div>
 
-            <div class="input">
-                <div class="input-addon">
-                	<font color="#000000">성적정보</font>
-                </div>
-                <input name="성적정보" placeholder="성적정보를 입력하세요." type="text" required class="validate" autocomplete="off">
-            </div>
-            <div class="clearfix"></div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">성적정보</font>
+								</div>
+								<input name="성적정보" placeholder="성적정보를 입력하세요." type="text" required class="validate" autocomplete="off">
+							</div>
+							<div class="clearfix"></div>
 
-            <div class="input">
-                <div class="input-addon">
-                	<font color="#000000">이수학점</font>
-                </div>
-                <input name="이수학점" placeholder="이수학점을 입력하세요." type="text" required class="validate" autocomplete="off">
-            </div>
-            <div class="clearfix"></div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">이수학점</font>
+								</div>
+								<input name="이수학점" placeholder="이수학점을 입력하세요." type="text" required class="validate" autocomplete="off">
+							</div>
+							<div class="clearfix"></div>
 
-            <div class="input">
-                <div class="input-addon">
-                	<font color="#000000">대학정보</font>
-                </div>
-                <input name="college" placeholder="재학중인 대학을 입력하세요." type="text" required class="validate" autocomplete="off">
-            </div>
-            <div class="clearfix"></div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">대학정보</font>
+								</div>
+								<input name="college" placeholder="재학중인 대학을 입력하세요." type="text" required class="validate" autocomplete="off">
+							</div>
+							<div class="clearfix"></div>
 
-            <div class="input">
-                <div class="input-addon">
-                	<font color="#000000">지원계열</font>
-                </div>
-                <input type="radio" name="지원계열" value="문과" required class="validate"><font color="#949494">문과</font>
-				<input type="radio" name="지원계열" value="이과"><font color="#949494">이과</font>
-				<input type="radio" name="지원계열" value="예체능"><font color="#949494">예체능</font>
-				<input type="radio" name="지원계열" value="복수전공"><font color="#949494">복수전공</font>
-            </div>
-            <div class="clearfix"></div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">지원계열</font>
+								</div>
+								<input type="radio" name="지원계열" value="문과" required class="validate"><font color="#949494">문과</font>
+								<input type="radio" name="지원계열" value="이과"><font color="#949494">이과</font>
+								<input type="radio" name="지원계열" value="예체능"><font color="#949494">예체능</font>
+								<input type="radio" name="지원계열" value="복수전공"><font color="#949494">복수전공</font>
+							</div>
+							<div class="clearfix"></div>
 
-            <div class="input">
-            	<div class="input-addon">
-            		<font color="#000000">장애여부</font>
-            	</div>
-            	<input type="radio" name="장애여부" value="true" required class="validate"><font color="#949494">예</font>
-				<input type="radio" name="장애여부" value="false"><font color="#949494">아니오</font>
-			</div>
-			<div calss="clearfix"></div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">장애여부</font>
+								</div>
+								<input type="radio" name="장애여부" value="true" required class="validate"><font color="#949494">예</font>
+								<input type="radio" name="장애여부" value="false"><font color="#949494">아니오</font>
+							</div>
+							<div calss="clearfix"></div>
 
-			<div class="input">
-            	<div class="input-addon">
-            		<font color="#000000">보훈(국가유공자)</font>
-            	</div>
-            	<input type="radio" name="보훈" value="true" required class="validate"><font color="#949494">예</font>
-				<input type="radio" name="보훈" value="false"><font color="#949494">아니오</font>
-			</div>
-			<div calss="clearfix"></div>
-			<div class="input">
-            	<div class="input-addon">
-            		<font color="#000000">입학유형</font>
-            	</div>
-            	<input type="radio" name="입학유형" value="true" required class="validate"><font color="#949494">정시</font>
-				<input type="radio" name="입학유형" value="false"><font color="#949494">수시</font>
-			</div>
-			<div calss="clearfix"></div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">보훈(국가유공자)</font>
+								</div>
+								<input type="radio" name="보훈" value="true" required class="validate"><font color="#949494">예</font>
+								<input type="radio" name="보훈" value="false"><font color="#949494">아니오</font>
+							</div>
+							<div calss="clearfix"></div>
+							<div class="input">
+								<div class="input-addon">
+									<font color="#000000">입학유형</font>
+								</div>
+								<input type="radio" name="입학유형" value="true" required class="validate"><font color="#949494">정시</font>
+								<input type="radio" name="입학유형" value="false"><font color="#949494">수시</font>
+							</div>
+							<div calss="clearfix"></div>
 
-        	<div class="register">
-           		<input type="submit" value="정보저장" />
-       		</div>
-       	</form>
-    </div>
-    <div class="clear"> </div>
-    <div class="testimonials"></div>
-    <div class="footer-grids">
+							<div class="register">
+								<input type="submit" value="정보저장" />
+							</div>
+						</form>
+					</div>
+					<div class="clear"> </div>
+					<div class="testimonials"></div>
+					<div class="footer-grids">
 					<div class="wrap">
 						<div class="footer-grid">
 							<h3>Quick Links</h3>

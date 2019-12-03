@@ -28,16 +28,21 @@
                   </div>
                   <nav id="menu-left">
                      <ul>
-                           <li><a href="{% url 'index' %}">Home</a></li>
-                           <li><a href="{% url 'about' %}">소개</a></li>
-                           {% if user.is_authenticated %}
-                           <li><a href="{% url 'result' %}">맞춤장학조회</a></li>
-                           <li><a href="{% url 'register' %}">장학정보등록</a></li>
-                           {% else %}
-                           <li><a href="{% url 'need_login' %}">맞춤장학조회</a></li>
-                           <li><a href="{% url 'need_login' %}">장학정보등록</a></li>
-                           {% endif %}
-                           <li><a href="{% url 'manage' %}">장학관리</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'notice' %}">공지사항</a></li>
+                        <li><a href="{% url 'about' %}">소개</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'result' %}">맞춤장학조회</a></li>
+                        <li><a href="{% url 'result_contest' %}">맞춤공모전</a></li>
+                        <li><a href="{% url 'register' %}">장학정보등록</a></li>
+                        {% else %}
+                        <li><a href="{% url 'need_login' %}">맞춤장학조회</a></li>
+                        <li><a href="{%url 'need_login' %}">맞춤공모전</a></li>
+                        <li><a href="{% url 'need_login' %}">장학정보등록</a></li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                        <li><a href="{% url 'manage' %}">장학관리</a></li>
+                        {% endif %}
                      </ul>
                   </nav>
             </div>
@@ -58,9 +63,11 @@
                      <li><a href="{% url 'about' %}">소개</a></li>
                      {% if user.is_authenticated %}
                      <li><a href="{% url 'result' %}">맞춤장학조회</a></li>
+                     <li><a href="{% url 'result_contest' %}">맞춤공모전</a></li>
                      <li><a href="{% url 'register' %}">장학정보등록</a></li>
                      {% else %}
                      <li><a href="{% url 'need_login' %}">맞춤장학조회</a></li>
+                     <li><a href="{%url 'need_login' %}">맞춤공모전</a></li>
                      <li><a href="{% url 'need_login' %}">장학정보등록</a></li>
                      {% endif %}
                      {% if user.is_superuser %}
@@ -188,23 +195,30 @@
                <input type="radio" name="입학유형" value="false"><font color="#949494">수시</font>
             </div>
             <div calss="clearfix"></div>
-
             <div class="register">
-                  <input type="submit" value="정보수정" />
-               </div>
+               <input type="submit" value="정보수정" />
+            </div>
             </form>
+            <div id="wrapper" style="left:30%">
+                  <button class="button-need">
+                   <div class="eff-need"></div>
+                   <a href="{% url 'delete_user' %}">회원탈퇴</a>
+                    </button>
+                 </div>
                   </td>
-                  <td>
-                  <div id="calendar"></div>
-                  
-                  </td>
+               <td>
+               <div id="calendar"></div>
+               
+               </td>
                </tr>
                <tr>
                   <td style=" padding-top:  65px; ">
                   <div id="container-interested">
                      <div id="title" style="vertical-align: middle;">
-                              <font color="#000000" style ="vertical-align: middle;">찜 목록</font>    
-                              <table cellspacing="0" border="1" summary="게시판의 글제목 리스트" class="tbl_type">
+                              <div style="text-align:center">
+                                 <h1>내가 찜한 <span>공모전</span></h1>
+                              </div>    
+                              <table cellspacing="0" border="1" class="tbl_type">
                                  <colgroup>
                                     <col width="120">
                                     <col width="85">
@@ -223,7 +237,30 @@
                                     </tr>
                                     {% endfor %}
                                  </tbody>
-                              </table>   
+                              </table>
+                              <div style="text-align:center">
+                                 <h1>내가 찜한 <span>장학</span></h1>
+                              </div>
+                              <table cellspacing="0" border="1" class="tbl_type">
+                                 <colgroup>
+                                    <col width="120">
+                                    <col width="85">
+                                 </colgroup>
+                                 <thead>
+                                    <tr>
+                                       <th scope="col">장학명</th>
+                                       <th scope="col">기간</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for row in result_table2 %}
+                                    <tr>
+                                       <td class="title">{{row.name}}</td>
+                                       <td class="created_date">{{row.period}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                 </tbody>
+                              </table>      
                      </div>
                   </div>
                   </td>

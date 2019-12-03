@@ -92,14 +92,14 @@
 					<div class="content-feature-grids">
 						<div class="wrap">
 							<div class="wrap"> 
-								<h1><span>로그인</span>이 필요한 서비스입니다.</h1>
+								<h1>정말로 <span>회원탈퇴</span>를 진행하시겠습니까?</h1>
 								<div class="clear"> </div>
 							</div>
-							<div id="wrapper" style="left:30%">
-								<button class="button-need">
-    							<div class="eff-need"></div>
-    							<a href="{% url 'login' %}">로그인하기</a>
-  								</button>
+							<div id="wrapper" style="left:40%">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="회원탈퇴">
+                                </form>
   							</div>
 						</div>
 					</div>

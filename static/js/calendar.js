@@ -11,7 +11,6 @@
     if(current) {
       var self = this;
       window.setTimeout(function() {
-        self.openDay(current);
       }, 500);
     }
   }
@@ -23,7 +22,7 @@
     //Draw Month
     this.drawMonth();
 
-    this.drawLegend();
+    //this.drawLegend();
   }
 
   Calendar.prototype.drawHeader = function() {
@@ -176,7 +175,7 @@
     return classes.join(' ');
   }
 
-  Calendar.prototype.openDay = function(el) {
+  /*Calendar.prototype.openDay = function(el) {
     var details, arrow;
     var dayNumber = +el.querySelectorAll('.day-number')[0].innerText || +el.querySelectorAll('.day-number')[0].textContent;
     var day = this.current.clone().date(dayNumber);
@@ -228,9 +227,9 @@
     this.renderEvents(todaysEvents, details);
 
     arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 27 + 'px';
-  }
+  }*/
 
-  Calendar.prototype.renderEvents = function(events, ele) {
+  /*Calendar.prototype.renderEvents = function(events, ele) {
     //Remove any events in the current details element
     var currentWrapper = ele.querySelector('.events');
     var wrapper = createElement('div', 'events in' + (currentWrapper ? ' new' : ''));
@@ -274,9 +273,9 @@
     } else {
       ele.appendChild(wrapper);
     }
-  }
+  }*/
 
-  Calendar.prototype.drawLegend = function() {
+  /*Calendar.prototype.drawLegend = function() {
     var legend = createElement('div', 'legend');
     var calendars = this.events.map(function(e) {
       return e.calendar + '|' + e.color;
@@ -291,7 +290,7 @@
       legend.appendChild(entry);
     });
     this.el.appendChild(legend);
-  }
+  }*/
 
   Calendar.prototype.nextMonth = function() {
     this.current.add('months', 1);
@@ -321,7 +320,7 @@
 
 !function() {
   var data = [
-    { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange' },
+    /*{ eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange' },
     { eventName: 'Interview - Jr. Web Developer', calendar: 'Work', color: 'orange' },
     { eventName: 'Demo New App to the Board', calendar: 'Work', color: 'orange' },
     { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange' },
@@ -339,7 +338,7 @@
     { eventName: 'Free Tamale Night', calendar: 'Other', color: 'green' },
     { eventName: 'Bowling Team', calendar: 'Other', color: 'green' },
     { eventName: 'Teach Kids to Code', calendar: 'Other', color: 'green' },
-    { eventName: 'Startup Weekend', calendar: 'Other', color: 'green' }
+    { eventName: 'Startup Weekend', calendar: 'Other', color: 'green' }*/
   ];
 
   

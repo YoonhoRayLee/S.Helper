@@ -38,6 +38,9 @@
 		/* //UI Object */
 		</style>
 		<div class="wrap">
+			<div class="about" style="text-align:center; left:50%;"">
+				<h1><span><a href="{% url 'index' %}" style="color:#E95192">S.Helper</a></span> Admin</h1>
+			</div>
 			<strong style="text-align:center">현재DB</strong>
 			<table cellspacing="0" border="1" summary="현재DB" class="tbl_type">
 				<caption>현재DB</caption>
@@ -61,13 +64,12 @@
 						<th scope="col">설명</th>
 						<th scope="col">분류</th>
 						<th scope="col">DEL</th>
-						<th scope="col">UP</th>
 					</tr>
 				</thead>
 				<tbody id="my_tb">
 						{% for scholarships in scholarships %}
 						<tr>
-							<form method="post">
+							<form method = "POST">
 							{% csrf_token %}
 								<td class="num" name="name">{{scholarships.name}}</td>
 								<td class="title" name="school">{{scholarships.school}}</td>
@@ -83,8 +85,10 @@
 								<td class="num" name="benefit">{{scholarships.benefit}}</td>
 								<td class="title" name="spec">{{scholarships.spec}}</td>
 								<td class="name" name="stype">{{scholarships.stype}}</td>
-								<td><button type="submit" class="button-delup" value="del" onclick=""><a>del</a></button></td>
-								<td><button type="submit" class="button-delup" value="up" onclick=""><a>up</a></button></td>
+								<td>
+									<input type="hidden" name="sid" value="{{scholarships.id}}">
+									<button type="submit" class="button-delup" value="del" onclick=""><a>del</a></button>
+								</td>
 							</form>
 						</tr>
 						{% endfor %}
@@ -131,9 +135,12 @@
 				</thead>
 				<tbody>
 					<tr>
-						<form method="post"></form>
+						<form method="get">
+							<input type="hidden" name="page" value="{{page}}"/>
 							<td>
-								<div class="input"><input name="searchDB" placeholder="검색 할 DB를 입력하세요." type="text2" required class="validate" autocomplete="off"></div>
+								<div class="input">
+									<input name="searchDB" placeholder="검색 할 DB를 입력하세요." type="text2" required class="validate" autocomplete="off">
+								</div>
 							</td>
 							<td>
 								<input type="submit" value="검색">
@@ -166,9 +173,10 @@
 								<th scope="col">분류</th>
 							</tr>
 						</thead>
+						{% if result_table %}
 						<tbody id="my_tb">
+							{% for Scholarship in result_table %}
 							<tr>
-								{% for Scholarship in Scholarship %}
 								<td class="num" name="name">{{Scholarship.name}}</td>
 								<td class="title" name="school">{{Scholarship.school}}</td>
 								<td class="name" name="grade">{{Scholarship.grade}}</td>
@@ -183,12 +191,18 @@
 								<td class="num" name="benefit">{{Scholarship.benefit}}</td>
 								<td class="title" name="spec">{{Scholarship.spec}}</td>
 								<td class="name" name="stype">{{Scholarship.stype}}</td>
-								{% endfor %}
 							</tr>
+							{% endfor %}
+						</tbody>
+						{% endif %}
 				</cogroup>
 			</table>
 		</div>
 		<div class="clear"></div>
-
+		{% if messages %}
+			{% for message in messages %}
+			<script>alert("{{message.message}}")</script>
+			{% endfor %}
+		{% endif %}
 	</body>
 </html>
