@@ -29,6 +29,9 @@ def signup(request):
         return render(request, 'accounts/signup.html')
     return render(request, 'accounts/signup.html')
 
+def check(request):
+    return render(request, 'check.html')
+
 def notice(request):
     notice_table = Notice.objects.all()
     context = {
@@ -99,49 +102,55 @@ def about(request):
     return render(request, 'about.html')
     
 def result_contest(request):
-    if request.method == "POST":
-        if request.POST.get('광고', '') == '광고':
-            return render(request, 'contest1.html')
-        else:
-            return render(request, 'result_contest.html')
-        if request.POST.get('과학', '') == '과학':
-            return render(request, 'contest2.html')
-        else:
-            return render(request, 'result_contest.html')
-
-        if request.POST.get('디자인', '') == '디자인':
-            return render(request, 'contest3.html')
-        else:
-            return render(request, 'result_contest.html')
-
-        if request.POST.get('UCC', '') == 'UCC':
-            return render(request, 'contest4.html')
-        else:
-            return render(request, 'result_contest.html')
+    uid = request.user.username
+    is_user_in_db = scholarship_info.objects.filter(uid=uid)
+    if is_user_in_db.count() == 0:
+        return redirect('/check/')
     else:
+        if request.method == "POST":
+            if request.POST.get('광고', '') == '광고':
+                return render(request, 'contest1.html')
+            else:
+                return render(request, 'result_contest.html')
+            if request.POST.get('과학', '') == '과학':
+                return render(request, 'contest2.html')
+            else:
+                return render(request, 'result_contest.html')
+
+            if request.POST.get('디자인', '') == '디자인':
+                return render(request, 'contest3.html')
+            else:
+                return render(request, 'result_contest.html')
+
+            if request.POST.get('UCC', '') == 'UCC':
+                return render(request, 'contest4.html')
+            else:
+                return render(request, 'result_contest.html')
         return render(request, 'result_contest.html')
 
 def result(request):
-    if request.method == "POST":
-        if request.POST.get('성적장학', '') == '성적':
-            return render(request, 'service1.html')
-        else:
-            return render(request, 'result.html')
-        if request.POST.get('복지장학', '') == '복지':
-            return render(request, 'service2.html')
-        else:
-            return render(request, 'result.html')
-
-        if request.POST.get('개인활동장학', '') == '개인활동':
-            return render(request, 'service3.html')
-        else:
-            return render(request, 'result.html')
-
-        if request.POST.get('특수장학', '') == '특수':
-            return render(request, 'service4.html')
-        else:
-            return render(request, 'result.html')
+    uid = request.user.username
+    is_user_in_db = scholarship_info.objects.filter(uid=uid)
+    if is_user_in_db.count() == 0:
+        return redirect('/check/')
     else:
+        if request.method == "POST":
+            if request.POST.get('성적장학', '') == '성적':
+                return render(request, 'service1.html')
+            else:
+                return render(request, 'result.html')
+            if request.POST.get('복지장학', '') == '복지':
+                return render(request, 'service2.html')
+            else:
+                return render(request, 'result.html')
+            if request.POST.get('개인활동장학', '') == '개인활동':
+                return render(request, 'service3.html')
+            else:
+                return render(request, 'result.html')
+            if request.POST.get('특수장학', '') == '특수':
+                return render(request, 'service4.html')
+            else:
+                return render(request, 'result.html')
         return render(request, 'result.html')
 
 def need_login(request):

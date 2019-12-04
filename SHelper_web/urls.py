@@ -45,6 +45,7 @@ urlpatterns = [
     path('form/', views.form, name='form'),
     path('mypage/', views.mypage, name='mypage'),
     path('add_db/', views.add_db, name='add_db'),
+    path('check/', views.check, name='check'),
     #url pattern 앞에 index/ 이거 붙는 애들 처리해줘야함
     #url regular regex check
 ]
