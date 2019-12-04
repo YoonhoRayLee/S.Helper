@@ -40,15 +40,22 @@ def notice(request):
     return render(request, 'notice.html', context)
 
 def notice_result(request):
-    if request.method == "POST":
-        nid = request.POST['nid']     
-        notice_table = Notice.objects.filter(id = nid)
-        context = {
-            'notice_table':notice_table,
-        }
-        return render(request, 'notice_result.html', context)
+    if request.method=="GET":
+        title = request.GET.get('delete', '')
+        Notice.objects.filter(title=title).delete()
+        messages.info(request, '공지사항을 삭제했습니다!')
+        return redirect('/notice/')
     else:
-        return render(request, 'notice_result.html', context)
+        if request.method=="POST":
+            nid = request.POST['nid']
+            notice_table = Notice.objects.filter(id = nid)
+            context = {
+                'notice_table':notice_table,
+            }
+            return render(request, 'notice_result.html', context)
+        else:
+            return render(request, 'notice_result.html', context)
+        
     
 
 def login(request):
@@ -126,7 +133,7 @@ def result_contest(request):
                 return render(request, 'contest4.html')
             else:
                 return render(request, 'result_contest.html')
-        return render(request, 'result_contest.html')
+            return render(request, 'result_contest.html')
 
 def result(request):
     uid = request.user.username

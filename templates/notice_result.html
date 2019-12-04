@@ -104,25 +104,40 @@
                                     <caption> 글쓰기 </caption>
                                 </thead>
                                 <tbody>
-                                    <form action="" method="post" encType="multiplart/form-data">
-                                        {% for row in notice_table %}
+									{% for row in notice_table %}
+                                    <form action="" method="POST" encType="multiplart/form-data"></form> 
                                         <tr>
+											<input type="hidden" name="list">
                                             <th width=20% style="text-align: center;"><font color="#000000">제목</font> </th>
                                             <td><font color="#000000">{{row.title}}</font></td>
                                         </tr>
                                         <tr>
                                             <th style="text-align: center;"><font color="#000000">내용</font> </th>
                                             <td height=300px><font color="#000000">{{row.content}}</font></td>
-                                        </tr>
-                                        {% endfor %}
-                                    </form>
+										</tr>
+									</form>
+									{% endfor %}
                                 </tbody>
-                            </table>
+							</table>
+							{% for row in notice_table %}
+							{% if user.is_superuser %}
+							<tr>
+								<form method=get>
+								{% csrf_token %}
+									<div class="register">
+										<input type="hidden" name="delete" value="{{row.title}}">
+										<input type="submit" value="글삭제">
+									</div>
+								</form>
+							</tr>
+							{% endif %}
+							{% endfor %}
                             </div>
 				</div>
 				<!-- UI Object -->
 <!-- //UI Object -->
 			</div>
+			
 				<!---start-bottom-footer-grids---->
             <div class="footer-grids">
                 <div class="wrap">
