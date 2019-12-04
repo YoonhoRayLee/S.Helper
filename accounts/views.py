@@ -387,6 +387,45 @@ def is_admin(request):
 def already(request):
     return render(request, 'already.html')
 
+def add_db(request):
+    if request.method == "POST": 
+        if request.POST.get('scholarship', ''):
+            num1 = request.POST.get('scholarship', '')
+            name = request.POST["name"]
+            school = request.POST["school"]
+            grade = request.POST["grade"]
+            year = request.POST["year"]
+            credit = request.POST["credit"]
+            income = request.POST["income"]
+            impaired = request.POST["impaired"]
+            merit = request.POST["merit"]
+            major = request.POST["major"]
+            regular = request.POST["regular_decision"]
+            period= request.POST["period"]
+            benefit = request.POST["benefit"]
+            spec = request.POST["spec"]
+            stype = request.POST["stype"]
+
+            Scholarship(name=name, school=school, grade=grade, year=year, credit=credit, 
+            income=income, impaired=impaired, merit=merit, major=major, regular_decision=regular, period=period,
+            benefit=benefit, spec=spec, stype=stype).save()
+            messages.info(request, '장학정보를 등록하였습니다!')
+            return redirect("/add_db/")
+        else:
+            num2 = request.POST.get('contest', '')
+            company = request.POST["company"]
+            Ctype = request.POST["Ctype"]
+            title = request.POST["title"]
+            content = request.POST["content"]
+            sdate = request.POST["sdate"]
+            edate = request.POST["edate"]
+            Contest(company=company, Ctype=Ctype, title=title, content=content, sdate=sdate, 
+            edate=edate).save()
+            messages.info(request, '공모전정보를 등록하였습니다!')
+            return redirect("/add_db/")
+    else:
+        return render(request, "add_db.html")
+
 #@login_required
 def register(request):
     uid = request.user.username
@@ -472,28 +511,43 @@ def manage(request):
         return redirect('/index/')
 
     Scholarship_list = Scholarship.objects.all()
+    Contest_list = Contest.objects.all()
     paginator = Paginator(Scholarship_list, 10)
+    paginator2 = Paginator(Contest_list, 10)
     page = request.GET.get('page', default=1)
+    page2 = request.GET.get('page2', default=1)
     searchDB = request.GET.get("searchDB")
-    
+    searchDB2 = request.GET.get("searchDB2")
     try:
         scholarships = paginator.page(page)
+        contests = paginator2.page(page2)
     except PageNotAnInteger:
         scholarships = paginator.page(1)
+        contests = paginator2.page(1)
     except EmptyPage:
         scholarships = paginator.page(paginator.num_pages)
+        contests = paginator2.page(paginator2.num_pages)
 
     if request.method=="POST":
-        sid = request.POST["sid"]
-        delete_scholarship = Scholarship.objects.get(id=sid)
-        delete_scholarship.delete()
-        messages.info(request, '해당 장학을 삭제 했습니다!')
+        if request.POST.get('sid', ''):
+            sid = request.POST.get('sid', '')
+            delete_scholarship = Scholarship.objects.get(id=sid)
+            delete_scholarship.delete()
+            messages.info(request, '해당 장학을 삭제 했습니다!')
+        else:
+            cid = request.POST.get('cid', '')
+            delete_contest = Contest.objects.get(id=cid)
+            delete_contest.delete()
+            messages.info(request, '해당 공모전을 삭제 했습니다!')
 
-    data = { 'scholarships':scholarships, "page": page }
+    data = { 'scholarships':scholarships, "page": page , 'contests':contests, "page2":page2}
 
     if searchDB:
         search_scholarship = Scholarship.objects.filter(name__contains=searchDB)
         data['result_table'] = search_scholarship
+    if searchDB2:
+        search_contest = Contest.objects.filter(title__contains=searchDB2)
+        data['result_table2'] = search_contest
 
     return render(request, 'manage.html', data)
 

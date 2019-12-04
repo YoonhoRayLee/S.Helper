@@ -40,6 +40,12 @@
 		<div class="wrap">
 			<div class="about" style="text-align:center; left:50%;"">
 				<h1><span><a href="{% url 'index' %}" style="color:#E95192">S.Helper</a></span> Admin</h1>
+				<div id="wrapper">
+					<button class="button-need" style="margin-right: auto;">
+						<div class="eff-need"></div>
+						<a href="{% url 'add_db' %}">정보추가하기</a>
+					</button>
+				</div>
 			</div>
 			<strong style="text-align:center">현재DB</strong>
 			<table cellspacing="0" border="1" summary="현재DB" class="tbl_type">
@@ -115,7 +121,59 @@
 						{% endif %}
 					</ul>
 			</div>
-			
+			<table cellspacing="0" border="1" summary="현재DB" class="tbl_type">
+					<caption>현재DB</caption>
+					<colgroup>
+						<col width="120"><col width="120"><col width="85"><col width="60"><col width="30">
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">공모전명</th>
+							<th scope="col">공모전내용</th>
+							<th scope="col">기간</th>
+							<th scope="col">주최기관</th>
+							<th scop="col">DEL</th>
+						</tr>
+					</thead>
+					<tbody id="my_tb">
+							{% for contest in contests %}
+							<tr>
+								<form method = "POST">
+								{% csrf_token %}
+									<td class="title">{{contest.title}}</td>
+									<td class="name">{{contest.content}}</td>
+									<td class="created_date">{{contest.sdate}} - {{contest.edate}}</td>
+									<td class="hits">{{contest.company}}</td>
+									<td>
+										<input type="hidden" name="cid" value="{{contest.id}}">
+										<button type="submit" class="button-delup" value="del" onclick=""><a>del</a></button>
+									</td>
+								</form>
+							</tr>
+							{% endfor %}
+					</tbody>
+				</table>
+				<div class="pagination" style="text-align:center">
+						<ul class="pagination" >
+							{% if contests.has_previous %}
+							<a href="?page2={{ contests.previous_page_number }}">&laquo;</a>
+							{% else %}
+							<!--<li class="disabled"><span>&laquo;</span></li>-->
+							{% endif %}
+							{% for i in contests.num_pages %}
+							<!--{% if scholarships.number == i %}-->
+								<li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+							<!--{% else %}-->
+								<a href="?page2={{ i }}">{{ i }}</a>
+							{% endif %}
+							{% endfor %}
+							{% if contests.has_next %}
+							<a href="?page2={{ contests.next_page_number }}">&raquo;</a>
+							{% else %}
+							<!--li class="disabled"><span>&raquo;</span></li>-->
+							{% endif %}
+						</ul>
+				</div>
 		</div>
 		<div class="clear"></div>
 
@@ -197,6 +255,62 @@
 						{% endif %}
 				</cogroup>
 			</table>
+			<table cellspacing="0" border="1" summary="검색예정DB" class="tbl_type">
+					<caption>검색예정DB</caption>
+					<colgroup>
+						<col width="10%"><col width="10%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">공모전명</th>
+							<th scop="col">검색</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<form method="get">
+								<input type="hidden" name="page2" value="{{page2}}"/>
+								<td>
+									<div class="input">
+										<input name="searchDB2" placeholder="검색 할 DB를 입력하세요." type="text2" required class="validate" autocomplete="off">
+									</div>
+								</td>
+								<td>
+									<input type="submit" value="검색">
+								</td>
+							</form>
+						</tr>
+					</tbody>
+				</table>
+				<table cellspacing="0" border="1" summary="검색결과" class="tbl_type">
+					<caption>검색결과</caption>
+					<colgroup>
+						<col width="120"><col width="120"><col width="85"><col width="60">
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">공모전명</th>
+							<th scope="col">공모전내용</th>
+							<th scope="col">기간</th>
+							<th scope="col">주최기관</th>
+						</tr>
+					</thead>
+					{% if result_table2 %}
+					<tbody>
+							{% for contest in result_table2 %}
+							<form action ="" method = "POST">
+									{% csrf_token %}
+									<tr>
+										<td class="title">{{contest.title}}</td>
+										<td class="name">{{contest.content}}</td>
+										<td class="created_date">{{contest.sdate}} - {{contest.edate}}</td>
+										<td class="hits">{{contest.company}}</td>
+									</tr>
+							</form>
+							{% endfor %}
+					</tbody>
+					{% endif %}
+				</table>
 		</div>
 		<div class="clear"></div>
 		{% if messages %}

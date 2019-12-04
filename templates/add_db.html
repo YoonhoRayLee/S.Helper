@@ -1,0 +1,229 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>S.Helper admin</title>
+		<link href="{% static 'style.css' %}" rel='stylesheet' type='text/css' />
+	</head>
+	<body>
+		<style>
+		/* UI Object */
+		.tbl_type,.tbl_type th,.tbl_type td{
+		border:0
+		}
+		.tbl_type{
+		width:100%;
+		border-bottom:2px solid #dcdcdc;
+		font-family:Tahoma;
+		font-size:11px;
+		text-align:center
+		}
+		.tbl_type caption{
+		display:none
+		}
+		.tbl_type th{
+		padding:7px 0 4px;
+		border-top:2px solid #dcdcdc;
+		background-color:#f5f7f9;
+		color:#666;
+		font-family:'돋움',dotum;font-size:12px;
+		font-weight:bold
+		}
+		.tbl_type td{
+		padding:6px 0 4px;
+		border-top:1px solid #e5e5e5;
+		font-family:'돋움',dotum;font-size:12px;
+		color:#4c4c4c
+		}
+		/* //UI Object */
+		</style>
+		<div class="wrap">
+			<div class="about" style="text-align:center; left:50%;"">
+				<h1><span><a href="{% url 'index' %}" style="color:#E95192">S.Helper</a></span> <a href="{% url 'manage' %}">Admin</a></h1>
+		  	<strong style="text-align:center">추가예정장학</strong>
+
+		  	<table cellspacing="0" border="1" summary="추가예정DB" class="tbl_type">
+				<caption>추가예정DB</caption>
+				<colgroup>
+                    <col width="10"><col width="20"><col width="20"><col width="20"><col width="20">
+                    <col width="20"><col width="20"><col width="20"><col width="20"><col width="20">
+                    <col width="20"><col width="20"><col width="20"><col width="20"><col width="20">
+                </colgroup>
+                <form method="POST">
+                {% csrf_token %}
+                    <thead>
+                        <tr>
+                            <th scope="col">장학금명</th>
+                            <th scope="col">학교</th>
+                            <th scope="col">성적</th>
+                            <th scope="col">학년</th>
+                            <th scope="col">이수학점</th>
+                            <th scope="col">소득분위</th>
+                            <th scope="col">장애여부</th>
+                            <th scope="col">보훈</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="input">
+                                    <input name="name" placeholder="장학금명." type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input">
+                                    <input name="school" placeholder="학교" type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input">
+                                    <input name="grade" placeholder="성적" type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input">
+                                    <input name="year" placeholder="학년" type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input">
+                                    <input name="credit" placeholder="이수학점" type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input">
+                                    <input name="income" placeholder="소득분위(1~9)" type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input">
+                                    <input name="impaired" placeholder="장애여부(true/false)" type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input">
+                                    <input name="merit" placeholder="보훈여부(true/false)" type="text2" required class="validate" autocomplete="off">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">전공분류</th>
+                            <th scope="col">입학유형</th>
+                            <th scope="col">신청기간</th>
+                            <th scope="col">지원내용</th>
+                            <th scope="col">설명</th>
+                            <th scope="col">분류</th>
+                            <th scope="col">추가</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="input">
+                                <input name="major" placeholder="(문과/이과/예체능/복수전공)" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="regular_decision" placeholder="(정시/수시)" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="period" placeholder="신청기간" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="benefit" placeholder="지원내용" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="spec" placeholder="설명" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="stype" placeholder="(성적/복지/개인활동/특수)" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="hidden" name="scholarship" value="1">
+                            <button type="submit" class="button-delup" value="add" onclick=""><a>추가</a></button>
+                        </td>      
+                        </tr>
+                    </tbody>
+                </form>
+			</table>
+            </table>
+            <div class="testimonials"></div>
+			<table cellspacing="0" border="1" summary="추가예정DB" class="tbl_type">
+                <strong style="text-align:center">추가예정공모전</strong>
+                <caption>추가예정DB</caption>
+                <colgroup>
+                    <col width="60"><col width="60"><col width="60"><col width="60"><col width="60"><col width="60"><col width="60">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">주최기관명</th>
+                        <th scope="col">공모전분류</th>
+                        <th scope="col">공모전명</th>
+                        <th scope="col">내용</th>
+                        <th scope="col">시작날짜</th>
+                        <th scope="col">종료날짜</th>
+                        <th scop="col">추가</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form method="POST">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <div class="input">
+                                <input name="company" placeholder="주최기관" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="Ctype" placeholder="(광고/과학/디자인/UCC)" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="title" placeholder="공모전명"" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="content" placeholder="내용" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="sdate" placeholder="YYYY-MM-DD" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input">
+                                <input name="edate" placeholder="YYYY-MM-DD" type="text2" required class="validate" autocomplete="off">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="hidden" name="contest" value="2">
+                            <button type="submit" class="button-delup" value="add" onclick=""><a>추가</a></button>
+                        </td>
+                    </tr>
+                    </form>
+                </tbody>
+            </table>
+		<div class="clear"></div>
+		{% if messages %}
+			{% for message in messages %}
+			<script>alert("{{message.message}}")</script>
+			{% endfor %}
+		{% endif %}
+	</body>
+</html>
