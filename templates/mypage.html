@@ -85,12 +85,12 @@
             <!--start-content-->
             <div class="content">
                <div class="testimonials">
-               <div class="content-feature-grids1">
+               <div class="content-feature-grids1" style="height:100px;">
                      <h1><span>마이</span>페이지</h1>
                </div>
                </div>
-               <table width=100% border="0" align="center">
-               <tr>
+               <table style="height:1050px; border:1px; width:100%; vertical-align:middle; margin:auto;">
+               <tr style="height:450px; border:1px;">
                   <td rowspan="2" width=50% style="padding-bottom: 10px; vertical-align: middle;">
                   <div id="container-register">
          <form method="post">
@@ -198,21 +198,28 @@
             <div class="register">
                <input type="submit" value="정보수정" />
             </div>
+            <div stlye="register">
+                  <button class="button-need" style="left:-4%;">
+                     <div class="eff-need"></div>
+                     <a href="{% url 'delete_user' %}">회원탈퇴</a>
+                  </button>
+            </div>
             </form>
+            
                   </td>
                <td>
                <div id="calendar"></div>
                
                </td>
                </tr>
-               <tr>
-                  <td style=" padding-top:  65px; ">
+               <tr style="height:600px; border:1px;">
+                  <td style=" padding-top: 15px; ">
                   <div id="container-interested">
-                     <div id="title" style="vertical-align: middle;">
+                     <div id="title" style="vertical-align: middle; height:auto;">
                               <div style="text-align:center">
                                  <h1>내가 찜한 <span>공모전</span></h1>
                               </div>    
-                              <table cellspacing="0" border="1" class="tbl_type">
+                              <table cellspacing="0" border="1" class="tbl_type" style="height:auto;">
                                  <colgroup>
                                     <col width="120">
                                     <col width="85">
@@ -253,23 +260,16 @@
                                        <td class="created_date">{{row.period}}</td>
                                     </tr>
                                     {% endfor %}
-                                 </tbody>
                               </table>      
                      </div>
                   </div>
                   </td>
                </tr>
+            </tbody>
             </table>
-            <div id="wrapper" style="left:23%">
-                  <button class="button-need">
-                   <div class="eff-need"></div>
-                   <a href="{% url 'delete_user' %}">회원탈퇴</a>
-                    </button>
-                 </div>
       </div>
-      
-      <div class="clear"> </div>
       <div class="testimonials"></div>
+      <div class="clear"> </div>
       <div class="footer-grids">
                   <div class="wrap">
                      <div class="footer-grid">

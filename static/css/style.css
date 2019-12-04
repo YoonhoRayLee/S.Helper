@@ -75,6 +75,7 @@ strong{
 .wrap{
 	width:70%;
 	margin:0 auto;
+	left:50%;
 }
 #page{
 	display:none;
