@@ -49,6 +49,7 @@ def notice_result(request):
         if request.method=="POST":
             nid = request.POST['nid']
             notice_table = Notice.objects.filter(id = nid)
+            notice_table.update(hit=F('hit')+1)
             context = {
                 'notice_table':notice_table,
             }
