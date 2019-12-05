@@ -134,7 +134,7 @@ def result_contest(request):
                 return render(request, 'contest4.html')
             else:
                 return render(request, 'result_contest.html')
-            return render(request, 'result_contest.html')
+        return render(request, 'result_contest.html')
 
 def result(request):
     uid = request.user.username
